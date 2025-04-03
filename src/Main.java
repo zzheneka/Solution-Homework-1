@@ -1,14 +1,24 @@
 import image.Image;
 import image.RealImage;
+import image.ProxyImage;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start");
+        System.out.println("== Пример с использованием Proxy ==");
 
-        Image image1 = new RealImage("house1.jpg");
-        image1.display();
+        Image thumb1 = new ProxyImage("house1.jpg");
+        Image thumb2 = new ProxyImage("house2.jpg");
 
-        Image image2 = new RealImage("house2.jpg");
-        image2.display();
+        System.out.println("-- Отображаем миниатюры (ничего не грузим) --");
+
+        // Покажем полные изображения только по запросу
+        System.out.println("\n-- Клик по первому изображению --");
+        thumb1.display();
+
+        System.out.println("\n-- Повторный клик по первому изображению --");
+        thumb1.display();
+
+        System.out.println("\n-- Клик по второму изображению --");
+        thumb2.display();
     }
 }
