@@ -3,6 +3,8 @@ import image.RealImage;
 import image.ProxyImage;
 import image.ProtectedImageProxy;
 import image.User;
+import map.MapMarker;
+import map.MarkerFactory;
 
 
 public class Main {
@@ -46,8 +48,25 @@ public class Main {
         System.out.println("\n[Попытка авторизованного агента]");
         img2.display();
 
+        System.out.println("\n== Flyweight Pattern: маркеры на карте ==");
+
+        MapMarker[] markers = new MapMarker[] {
+                new MapMarker(51.12, 71.45, "Astana Hospital", "hospital"),
+                new MapMarker(51.10, 71.42, "Samurai Sushi", "restaurant"),
+                new MapMarker(51.13, 71.48, "Gas Central", "gas"),
+                new MapMarker(51.14, 71.47, "KFC", "restaurant"),
+                new MapMarker(51.16, 71.49, "Shell Station", "gas"),
+                new MapMarker(51.11, 71.41, "City Clinic", "hospital")
+        };
+
+        for (MapMarker marker : markers) {
+            marker.render();
+        }
+
+        System.out.println("Общее количество уникальных стилей: " + MarkerFactory.getUniqueStyleCount());
     }
 }
+
 //Гость не может загрузить изображение
 //- Агент — может
 //- Миниатюры показываются сразу, оригиналы только по клику
