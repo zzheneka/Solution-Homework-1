@@ -30,6 +30,12 @@ public class Main {
 
         User guest = new User("guest123", false);
         User agent = new User("agent007", true);
+        User agentAlina = new User("agent_alina", true);
+        Image img3 = new ProtectedImageProxy("cottage-north.jpg", agentAlina);
+
+        System.out.println("\n[Попытка другого агента]");
+        img3.display();
+
 
         Image img1 = new ProtectedImageProxy("penthouse.jpg", guest);
         Image img2 = new ProtectedImageProxy("penthouse.jpg", agent);
@@ -42,3 +48,10 @@ public class Main {
 
     }
 }
+//Гость не может загрузить изображение
+//- Агент — может
+//- Миниатюры показываются сразу, оригиналы только по клику
+// RealImage— еальный объект изображения
+//ProxyImage отображает миниатюру и загружает оригинал только при необходимости
+//ProtectedImageProxy защищённый прокси, разрешает доступ только авторизованным агентам
+//*User объект пользователя, указывает, является ли он агентом
