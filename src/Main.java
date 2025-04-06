@@ -5,6 +5,9 @@ import image.ProtectedImageProxy;
 import image.User;
 import map.MapMarker;
 import map.MarkerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class Main {
@@ -64,6 +67,35 @@ public class Main {
         }
 
         System.out.println("Общее количество уникальных стилей: " + MarkerFactory.getUniqueStyleCount());
+        System.out.println("\n== Flyweight Pattern: генерация маркеров ==");
+
+        String[] types = {"hospital", "restaurant", "gas"};
+        Random rand = new Random();
+        List<MapMarker> allMarkers = new ArrayList<>();
+
+        for (int i = 0; i < 1000; i++) {
+            double lat = 51.0 + rand.nextDouble();
+            double lon = 71.0 + rand.nextDouble();
+            String type = types[rand.nextInt(types.length)];
+            String name = type + "_marker_" + i;
+            allMarkers.add(new MapMarker(lat, lon, name, type));
+        }
+
+        System.out.println("Всего маркеров: " + allMarkers.size());
+        System.out.println(" Уникальных стилей: " + MarkerFactory.getUniqueStyleCount());
+
+
+        int markerSize = 64; // один объект занимает 64 байта
+        int styleSize = 128;
+
+        int naiveMemory = allMarkers.size() * (markerSize + styleSize);
+        int flyweightMemory = allMarkers.size() * markerSize + MarkerFactory.getUniqueStyleCount() * styleSize;
+
+        System.out.println("\n Оценка использования памяти:");
+        System.out.println("Без Flyweight: " + naiveMemory / 1024 + " KB");
+        System.out.println("С Flyweight:   " + flyweightMemory / 1024 + " KB");
+        System.out.println(" Экономия:   ~" + (naiveMemory - flyweightMemory) / 1024 + " KB");
+
     }
 }
 
